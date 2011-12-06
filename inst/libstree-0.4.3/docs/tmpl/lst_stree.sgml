@@ -1,0 +1,142 @@
+<!-- ##### SECTION Title ##### -->
+lst_stree
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION lst_stree_new ##### -->
+<para>
+
+</para>
+
+@strings: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stree_free ##### -->
+<para>
+
+</para>
+
+@tree: 
+
+
+<!-- ##### FUNCTION lst_stree_init ##### -->
+<para>
+
+</para>
+
+@tree: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stree_clear ##### -->
+<para>
+
+</para>
+
+@tree: 
+
+
+<!-- ##### FUNCTION lst_stree_add_string ##### -->
+<para>
+
+</para>
+
+@tree: 
+@string: 
+
+
+<!-- ##### FUNCTION lst_stree_remove_string ##### -->
+<para>
+
+</para>
+
+@tree: 
+@string: 
+
+
+<!-- ##### FUNCTION lst_stree_get_string_index ##### -->
+<para>
+
+</para>
+
+@tree: 
+@string: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stree_allow_duplicates ##### -->
+<para>
+
+</para>
+
+@tree: 
+@duplicates_flag: 
+
+
+<!-- ##### FUNCTION lst_node_get_parent ##### -->
+<para>
+
+</para>
+
+@node: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_node_is_leaf ##### -->
+<para>
+
+</para>
+
+@node: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_node_is_root ##### -->
+<para>
+
+</para>
+
+@node: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_node_get_string_length ##### -->
+<para>
+
+</para>
+
+@node: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_node_get_string ##### -->
+<para>
+
+</para>
+
+@node: 
+@max_depth: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_edge_get_length ##### -->
+<para>
+
+</para>
+
+@edge: 
+@Returns: 
+
+

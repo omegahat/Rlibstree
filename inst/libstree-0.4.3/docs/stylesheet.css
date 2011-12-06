@@ -1,0 +1,27 @@
+body          { margin-left:10px;
+		margin-right:10px;
+		margin-top:10px;
+		margin-bottom:10px;
+		color:#101010;
+		font-size:10pt;
+                background-repeat:no-repeat;
+              }
+
+h1.title      { text-align:center; }
+.abstract     { text-align:center; }
+
+th            { font-family:arial,helvetica;
+		font-size:12px; }
+
+td            { font-family:arial,helvetica;
+	 	font-size:10px; }
+
+.mediaobject  { text-align:center; }
+.email        { font-size:10px }
+
+span, h1, h2, h3, h4, p, div, table { font-family:arial,helvetica; }
+
+h1.title      { font-size:22px;
+		color:#000000;
+		background-color:#ffffff;
+              }

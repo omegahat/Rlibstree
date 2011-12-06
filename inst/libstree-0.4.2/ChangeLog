@@ -1,0 +1,69 @@
+libstree 0.3 Changelog
+========================================================================
+
+Wed Mar  1 13:56:42 GMT 2006             Christian <christian@whoop.org>
+
+Several updates, largely due to comments from gray@cpan.org who kindly
+provided Perl bindings for libstree.
+
+- Repeated invocations of lst_alg_longest_common_substring() on unmodi-
+  fied trees should now work.
+- Fixed a memleak in lst_stree_clear(), which didn't properly clean up
+  the string hash structure.
+- Bumped up version number to 0.4.2.
+
+------------------------------------------------------------------------
+
+Mon Jan 16 14:54:13 GMT 2006             Christian <christian@whoop.org>
+
+- This is 0.4.1.
+
+------------------------------------------------------------------------
+
+Mon Jan 16 13:56:03 GMT 2006             Christian <christian@whoop.org>
+
+- Fixes to the documentation system.
+
+------------------------------------------------------------------------
+
+Mon Jan 16 11:14:47 GMT 2006             Christian <christian@whoop.org>
+
+- Fixed project URL in README.
+
+------------------------------------------------------------------------
+
+Tue Jan 13 14:25:58 GMT 2004             Christian <christian@whoop.org>
+
+0.4.0 released. :)
+
+------------------------------------------------------------------------
+
+Tue Jan 13 14:22:32 GMT 2004             Christian <christian@whoop.org>
+
+Final commits for the 0.4 release:
+
+- configure.ac is gone, it is now configure.in.
+- added another patch from Andreas Gustaffson, fixing a bug in my logic
+in lst_string_eq(). Thanks!
+
+
+------------------------------------------------------------------------
+
+Wed Sep 10 14:35:40 BST 2003             Christian <christian@whoop.org>
+
+Applied a patch from Andreas Gustafsson <gson@gson.org> to support
+longest repeated substrings.
+
+------------------------------------------------------------------------
+
+Wed Sep 10 14:29:12 BST 2003             Christian <christian@whoop.org>
+
+Automatic ChangeLog management ...
+
+------------------------------------------------------------------------
+
+Thu Mar  6 04:27:36 GMT 2003             Christian <christian@whoop.org>
+
+Initial release.
+
+------------------------------------------------------------------------

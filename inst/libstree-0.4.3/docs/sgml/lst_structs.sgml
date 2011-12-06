@@ -1,0 +1,52 @@
+<refentry id="libstree-lst-structs">
+<refmeta>
+<refentrytitle>lst_structs</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBSTREE Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>lst_structs</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="LST-STRING-HASH-SIZE:CAPS">LST_STRING_HASH_SIZE</link>
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="LST-STRING-HASH-SIZE:CAPS">LST_STRING_HASH_SIZE</title>
+<indexterm><primary>LST_STRING_HASH_SIZE</primary></indexterm><programlisting>#define LST_STRING_HASH_SIZE         199
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

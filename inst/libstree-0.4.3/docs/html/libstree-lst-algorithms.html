@@ -1,0 +1,863 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>lst_algorithms</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="libstree Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="PREVIOUS"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="NEXT"
+TITLE="lst_stree"
+HREF="libstree-lst-stree.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>libstree Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="api.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-stree.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="LIBSTREE-LST-ALGORITHMS"
+></A
+>lst_algorithms</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN96"
+></A
+><H2
+>Name</H2
+>lst_algorithms&nbsp;--&nbsp;</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN99"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;
+
+int         (<A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>*LST_NodeVisitCB</A
+>)              (LST_Node *node,
+                                             void *data);
+void        <A
+HREF="libstree-lst-algorithms.html#LST-ALG-BFS"
+>lst_alg_bfs</A
+>                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);
+void        <A
+HREF="libstree-lst-algorithms.html#LST-ALG-DFS"
+>lst_alg_dfs</A
+>                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);
+void        <A
+HREF="libstree-lst-algorithms.html#LST-ALG-BUS"
+>lst_alg_bus</A
+>                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);
+void        <A
+HREF="libstree-lst-algorithms.html#LST-ALG-LEAFS"
+>lst_alg_leafs</A
+>                   (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);
+u_int       <A
+HREF="libstree-lst-algorithms.html#LST-ALG-SET-VISITORS"
+>lst_alg_set_visitors</A
+>            (LST_STree *tree);
+LST_StringSet* <A
+HREF="libstree-lst-algorithms.html#LST-ALG-LONGEST-COMMON-SUBSTRING"
+>lst_alg_longest_common_substring</A
+>
+                                            (LST_STree *tree,
+                                             u_int min_len,
+                                             u_int max_len);
+LST_StringSet* <A
+HREF="libstree-lst-algorithms.html#LST-ALG-LONGEST-REPEATED-SUBSTRING"
+>lst_alg_longest_repeated_substring</A
+>
+                                            (LST_STree *tree,
+                                             u_int min_len,
+                                             u_int max_len);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN139"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN142"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN144"
+></A
+><H3
+><A
+NAME="LST-NODEVISITCB"
+></A
+>LST_NodeVisitCB ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         (*LST_NodeVisitCB)              (LST_Node *node,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the signature of the callbacks used in several of
+the algorithms below, that iterate over the tree. They
+call a callback of this signature for every node they
+visit.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node currently visited.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> arbitrary data passed through.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> value &gt; 0 if the iteration algorithm that called
+this node is to proceed beyond this node, or 0 if not. Note
+that this does not necessarily mean that an algorithm will
+abort when the return value is 0.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN171"
+></A
+><H3
+><A
+NAME="LST-ALG-BFS"
+></A
+>lst_alg_bfs ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_alg_bfs                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm iterates the tree in breadth-first order, calling
+<TT
+CLASS="PARAMETER"
+>callback</TT
+> for each node visited.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> suffix tree to iterate.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>callback</TT
+>&nbsp;:</DT
+><DD
+><P
+> callback to call for each node.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> user data passed through to callback.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN200"
+></A
+><H3
+><A
+NAME="LST-ALG-DFS"
+></A
+>lst_alg_dfs ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_alg_dfs                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm iterates the tree in depth-first order, calling
+<TT
+CLASS="PARAMETER"
+>callback</TT
+> for each node visited.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> suffix tree to iterate.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>callback</TT
+>&nbsp;:</DT
+><DD
+><P
+> callback to call for each node.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> user data passed through to callback.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN229"
+></A
+><H3
+><A
+NAME="LST-ALG-BUS"
+></A
+>lst_alg_bus ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_alg_bus                     (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm iterates the tree in bottom-up order, calling <TT
+CLASS="PARAMETER"
+>callback</TT
+>
+for each node visited. This algorithm ignores the return value
+of <TT
+CLASS="PARAMETER"
+>callback</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> suffix tree to iterate.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>callback</TT
+>&nbsp;:</DT
+><DD
+><P
+> callback to call for each node.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> user data passed through to callback.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN259"
+></A
+><H3
+><A
+NAME="LST-ALG-LEAFS"
+></A
+>lst_alg_leafs ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_alg_leafs                   (LST_STree *tree,
+                                             <A
+HREF="libstree-lst-algorithms.html#LST-NODEVISITCB"
+>LST_NodeVisitCB</A
+> callback,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm iterates over all leafs in the tree, calling <TT
+CLASS="PARAMETER"
+>callback</TT
+>
+for each node visited. If <TT
+CLASS="PARAMETER"
+>callback</TT
+> returns 0, it stops.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> suffix tree to visit.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>callback</TT
+>&nbsp;:</DT
+><DD
+><P
+> callback to call for each node.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> user data passed through to callback.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN289"
+></A
+><H3
+><A
+NAME="LST-ALG-SET-VISITORS"
+></A
+>lst_alg_set_visitors ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>u_int       lst_alg_set_visitors            (LST_STree *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm updates the visitor elements in each node of <TT
+CLASS="PARAMETER"
+>tree</TT
+>
+to contain a one-bit for each string index that is contained
+in the tree.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to update.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> bitstring representing a node visited by all strings.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN311"
+></A
+><H3
+><A
+NAME="LST-ALG-LONGEST-COMMON-SUBSTRING"
+></A
+>lst_alg_longest_common_substring ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_StringSet* lst_alg_longest_common_substring
+                                            (LST_STree *tree,
+                                             u_int min_len,
+                                             u_int max_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm computes the longest common substring(s) in <TT
+CLASS="PARAMETER"
+>tree</TT
+>
+and returns them as a new string set. This is currently a suboptimal
+O(n^2) implementation until I have time for the more sophisticated
+O(n) implementation available. If you want to limit the string length,
+pass an appropriate value for <TT
+CLASS="PARAMETER"
+>max_len</TT
+>, or pass 0 if you want the
+longest string(s) possible. Similarly, if you want to receive only
+longest common substrings of at least a certain number of items, use
+<TT
+CLASS="PARAMETER"
+>min_len</TT
+> for that, or pass 0 to indicate interest in everything.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to use in computation.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>min_len</TT
+>&nbsp;:</DT
+><DD
+><P
+> minimum length that common substrings must have to be returned.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>max_len</TT
+>&nbsp;:</DT
+><DD
+><P
+> don't return strings longer than <TT
+CLASS="PARAMETER"
+>max_len</TT
+> items.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new string set, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> when no strings were found.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN349"
+></A
+><H3
+><A
+NAME="LST-ALG-LONGEST-REPEATED-SUBSTRING"
+></A
+>lst_alg_longest_repeated_substring ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_StringSet* lst_alg_longest_repeated_substring
+                                            (LST_STree *tree,
+                                             u_int min_len,
+                                             u_int max_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The algorithm computes the longest repeated substring(s) in <TT
+CLASS="PARAMETER"
+>tree</TT
+>
+and returns them as a new string set. This is currently a suboptimal
+O(n^2) implementation until I have time for the more sophisticated
+O(n) implementation available. If you want to limit the string length,
+pass an appropriate value for <TT
+CLASS="PARAMETER"
+>max_len</TT
+>, or pass 0 if you want the
+longest string(s) possible. Similarly, if you want to receive only
+longest repeated substrings of at least a certain number of items, use
+<TT
+CLASS="PARAMETER"
+>min_len</TT
+> for that, or pass 0 to indicate interest in everything.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to use in computation.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>min_len</TT
+>&nbsp;:</DT
+><DD
+><P
+> minimum length that repeated substrings must have to be returned.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>max_len</TT
+>&nbsp;:</DT
+><DD
+><P
+> don't return strings longer than <TT
+CLASS="PARAMETER"
+>max_len</TT
+> items.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new string set, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> when no strings were found.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="libstree-lst-stree.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>libstree API Reference</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>lst_stree</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

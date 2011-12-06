@@ -1,0 +1,87 @@
+AC_INIT(src/stree.c)
+
+dnl LIBSTREE_BUILD=/usr/local
+
+AC_ARG_WITH(libstree, "--with-libstree=directory   Name giving the location of the libstree code that has been compiled", [LIBSTREE_BUILD=$withval])
+
+AC_ARG_WITH(libstree-version, ["--with-libstree-version=version  which version of the libstree source code included in this package to use, e.g. 0.4-2 or 0.4-3"], [LIBSTREE_VERSION=$withval], [LIBSTREE_VERSION="0.4.2"])
+# LIBSTREE_VERSION="0.4.2"
+
+
+USE_LOCAL_STREE="yes"
+
+if test "${LIBSTREE_BUILD}" == "local" ; then
+  echo "Using local version of libstree, libstree-${LIBSTREE_VERSION}"
+elif test -n "$LIBSTREE_BUILD" ; then
+ echo "Finding  libstree files"
+ if ! test -d $LIBSTREE_BUILD ; then
+  echo "$LIBSTREE_BUILD is not a directory. Can't use that to locate the libstree build."
+ fi
+
+ if test -d $LIBSTREE_BUILD/src ; then
+   LIBSTREE_CPP_FLAGS="-I$LIBSTREE_BUILD/src -DFROM_LIBSTREE_SRC=1"
+   CPPFLAGS="$CPPFLAGS $LIBSTREE_CPP_FLAGS"
+   LIBSTREE_DIR=-L$LIBSTREE_BUILD/src
+   MSG="Attempting to use libstree from source build in $LIBSTREE_BUILD. This may not work as the act of installing the libstree code finishes off building the libraries! Use the command make install prefix=wherever  for libstree and use --with-libstree=wherever for this package"
+   USE_LOCAL_STREE="no"
+ elif test -d $LIBSTREE_BUILD/include && test -d $LIBSTREE_BUILD/lib ; then
+   HPREFIX="stree/"
+   LIBSTREE_CPP_FLAGS=-I$LIBSTREE_BUILD/include
+   CPPFLAGS="$CPPFLAGS $LIBSTREE_CPP_FLAGS"
+   LIBSTREE_DIR=-L$LIBSTREE_BUILD/lib
+   echo "Using installed libstree in $LIBSTREE_BUILD"
+   USE_LOCAL_STREE="no"
+ fi
+else
+
+ if test -r /usr/local/include/stree ; then
+   LIBSTREE_CPP_FLAGS="-I/usr/local/include/stree"
+   LIBSTREE_DIR="-L/usr/local/include"
+   CPPFLAGS="$CPPFLAGS $LIBSTREE_CPP_FLAGS"
+ else
+   echo "No location specified for finding lst_structs.h"
+ fi
+
+fi
+
+CUR_DIR=`pwd`
+
+if test "${USE_LOCAL_STREE}" = "yes"  ; then
+
+   echo "Using version ${LIBSTREE_VERSION} of libstree source included with this R package"
+   echo "Need to compile the source. This may take a few moments."
+   if test -z "${DONT_BUILD_LIBSTREE}" ; then
+         SOURCE_DIR=`pwd`/local
+         cd inst/libstree-${LIBSTREE_VERSION}
+	 ./configure --prefix="${SOURCE_DIR}"  --enable-shared=no --enable-static=yes --with-pic=yes
+	 make 
+	 make install
+#         cp lib/libstree.so ${R_PACKAGE_DIR}/libs/
+         cd ../../
+   fi
+
+   LIBSTREE_CPP_FLAGS="-I../local/include/"
+   LIBSTREE_DIR="-L../local/lib"
+   CPPFLAGS="$CPPFLAGS $LIBSTREE_CPP_FLAGS"   
+   HPREFIX="stree/"
+   cd src/
+fi
+
+
+AC_CHECK_HEADER(${HPREFIX}lst_structs.h, , [echo "Cannot find libstree header files"; exit 1])
+
+AC_TRY_COMPILE(#include "${HPREFIX}lst_structs.h",
+               [LST_StringSet *set;  set = lst_stringset_new(); return(0)],
+               , [echo "Cannot find libstree library"])
+
+
+AC_SUBST(LIBSTREE_CPP_FLAGS)
+AC_SUBST(LIBSTREE_DIR)
+
+cd ${CUR_DIR}
+
+
+AC_OUTPUT(src/Makevars)
+
+echo "Building Rlibstree"
+

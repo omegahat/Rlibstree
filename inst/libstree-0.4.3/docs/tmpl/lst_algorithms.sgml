@@ -1,0 +1,97 @@
+<!-- ##### SECTION Title ##### -->
+lst_algorithms
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### USER_FUNCTION LST_NodeVisitCB ##### -->
+<para>
+
+</para>
+
+@node: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_alg_bfs ##### -->
+<para>
+
+</para>
+
+@tree: 
+@callback: 
+@data: 
+
+
+<!-- ##### FUNCTION lst_alg_dfs ##### -->
+<para>
+
+</para>
+
+@tree: 
+@callback: 
+@data: 
+
+
+<!-- ##### FUNCTION lst_alg_bus ##### -->
+<para>
+
+</para>
+
+@tree: 
+@callback: 
+@data: 
+
+
+<!-- ##### FUNCTION lst_alg_leafs ##### -->
+<para>
+
+</para>
+
+@tree: 
+@callback: 
+@data: 
+
+
+<!-- ##### FUNCTION lst_alg_set_visitors ##### -->
+<para>
+
+</para>
+
+@tree: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_alg_longest_common_substring ##### -->
+<para>
+
+</para>
+
+@tree: 
+@min_len: 
+@max_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_alg_longest_repeated_substring ##### -->
+<para>
+
+</para>
+
+@tree: 
+@min_len: 
+@max_len: 
+@Returns: 
+
+

@@ -1,0 +1,3 @@
+PKG_CPPFLAGS=-I../local/include/
+PKG_LIBS=-L../local/lib -lstree
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if test -d local ; then
+  rm -fr local
+fi

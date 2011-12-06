@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title></title>
+</head>
+
+<body>
+<h1></h1>
+
+<dl>
+
+  <dt> Add interface to tree routines
+  <dd> e.g. add/remove a string, allow duplicates.<br>
+         dfs, bfs, bus, leafs, visitors
+  
+  <dt> Store the length of the StringSet along with the pointer.
+  <dd> For efficiency so we avoid having to compute its length for
+        the lapply.
+ 
+  <dt> Free the data structures when they are not used.
+  <dd> <font color="red">Test this is working</font>.
+
+</dl>
+
+
+<h2>Done</h2>
+
+<dl>
+
+  <dt> Allow C routines in the lapply().
+  <dd> <font color="red">Interface for the void * user data</font> Check.
+
+  
+  <dt>
+      Add ... support to the C part of the lapply.
+  <dd> Done.
+
+  <dt> Add the sapply to simplify the result of lapply.
+  <dd> Done.
+
+  <dt>  Put the string names on the results of an lapply
+  <dd> Done.  
+</dl>
+
+
+<hr>
+<address><a href="http://www.stat.ucdavis.edu/~duncan">Duncan Temple Lang</a>
+<a href=mailto:duncan@wald.ucdavis.edu>&lt;duncan@wald.ucdavis.edu&gt;</a></address>
+<!-- hhmts start -->
+Last modified: Mon May 30 09:23:50 PDT 2005
+<!-- hhmts end -->
+</body> </html>

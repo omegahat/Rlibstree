@@ -1,0 +1,279 @@
+<!-- ##### SECTION Title ##### -->
+lst_string
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO LST_STRING_END ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO LST_EMPTY_STRING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### USER_FUNCTION LST_StringCB ##### -->
+<para>
+
+</para>
+
+@string: 
+@data: 
+
+
+<!-- ##### USER_FUNCTION LST_StringItemCmpFunc ##### -->
+<para>
+
+</para>
+
+@item1: 
+@item2: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION LST_StringPrintFunc ##### -->
+<para>
+
+</para>
+
+@index: 
+@Returns: 
+
+
+<!-- ##### USER_FUNCTION LST_StringItemCopyFunc ##### -->
+<para>
+
+</para>
+
+@src: 
+@dst: 
+
+
+<!-- ##### FUNCTION lst_string_new ##### -->
+<para>
+
+</para>
+
+@data: 
+@item_size: 
+@num_items: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_init ##### -->
+<para>
+
+</para>
+
+@string: 
+@data: 
+@item_size: 
+@num_items: 
+
+
+<!-- ##### FUNCTION lst_string_free ##### -->
+<para>
+
+</para>
+
+@string: 
+
+
+<!-- ##### FUNCTION lst_string_free_keep_data ##### -->
+<para>
+
+</para>
+
+@string: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_get_length ##### -->
+<para>
+
+</para>
+
+@string: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_get_item ##### -->
+<para>
+
+</para>
+
+@string: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_print ##### -->
+<para>
+
+</para>
+
+@string: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_item_copy ##### -->
+<para>
+
+</para>
+
+@src: 
+@src_index: 
+@dst: 
+@dst_index: 
+
+
+<!-- ##### FUNCTION lst_string_eq ##### -->
+<para>
+
+</para>
+
+@s1: 
+@item1: 
+@s2: 
+@item2: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_items_common ##### -->
+<para>
+
+</para>
+
+@s1: 
+@off1: 
+@s2: 
+@off2: 
+@max_len: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_print_hex ##### -->
+<para>
+
+</para>
+
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stringclass_new ##### -->
+<para>
+
+</para>
+
+@cmp_func: 
+@copy_func: 
+@print_func: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stringclass_free ##### -->
+<para>
+
+</para>
+
+@sclass: 
+
+
+<!-- ##### FUNCTION lst_stringclass_set_defaults ##### -->
+<para>
+
+</para>
+
+@cmp_func: 
+@copy_func: 
+@print_func: 
+
+
+<!-- ##### FUNCTION lst_string_set_class ##### -->
+<para>
+
+</para>
+
+@string: 
+@sclass: 
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_string_index_init ##### -->
+<para>
+
+</para>
+
+@index: 
+
+
+<!-- ##### FUNCTION lst_string_index_copy ##### -->
+<para>
+
+</para>
+
+@src: 
+@dst: 
+
+
+<!-- ##### FUNCTION lst_stringset_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION lst_stringset_add ##### -->
+<para>
+
+</para>
+
+@set: 
+@string: 
+
+
+<!-- ##### FUNCTION lst_stringset_remove ##### -->
+<para>
+
+</para>
+
+@set: 
+@string: 
+
+
+<!-- ##### FUNCTION lst_stringset_foreach ##### -->
+<para>
+
+</para>
+
+@set: 
+@callback: 
+@user_data: 
+
+
+<!-- ##### FUNCTION lst_stringset_free ##### -->
+<para>
+
+</para>
+
+@set: 
+
+

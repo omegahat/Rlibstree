@@ -1,0 +1,293 @@
+<refentry id="libstree-lst-stree">
+<refmeta>
+<refentrytitle>lst_stree</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBSTREE Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>lst_stree</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+<link linkend="LST-STree">LST_STree</link>*  <link linkend="lst-stree-new">lst_stree_new</link>                   (<link linkend="LST-StringSet">LST_StringSet</link> *strings);
+<link linkend="void">void</link>        <link linkend="lst-stree-free">lst_stree_free</link>                  (<link linkend="LST-STree">LST_STree</link> *tree);
+<link linkend="int">int</link>         <link linkend="lst-stree-init">lst_stree_init</link>                  (<link linkend="LST-STree">LST_STree</link> *tree);
+<link linkend="void">void</link>        <link linkend="lst-stree-clear">lst_stree_clear</link>                 (<link linkend="LST-STree">LST_STree</link> *tree);
+<link linkend="void">void</link>        <link linkend="lst-stree-add-string">lst_stree_add_string</link>            (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);
+<link linkend="void">void</link>        <link linkend="lst-stree-remove-string">lst_stree_remove_string</link>         (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);
+<link linkend="int">int</link>         <link linkend="lst-stree-get-string-index">lst_stree_get_string_index</link>      (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);
+<link linkend="void">void</link>        <link linkend="lst-stree-allow-duplicates">lst_stree_allow_duplicates</link>      (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="int">int</link> duplicates_flag);
+<link linkend="LST-Node">LST_Node</link>*   <link linkend="lst-node-get-parent">lst_node_get_parent</link>             (<link linkend="LST-Node">LST_Node</link> *node);
+<link linkend="int">int</link>         <link linkend="lst-node-is-leaf">lst_node_is_leaf</link>                (<link linkend="LST-Node">LST_Node</link> *node);
+<link linkend="int">int</link>         <link linkend="lst-node-is-root">lst_node_is_root</link>                (<link linkend="LST-Node">LST_Node</link> *node);
+<link linkend="int">int</link>         <link linkend="lst-node-get-string-length">lst_node_get_string_length</link>      (<link linkend="LST-Node">LST_Node</link> *node);
+<link linkend="LST-String">LST_String</link>* <link linkend="lst-node-get-string">lst_node_get_string</link>             (<link linkend="LST-Node">LST_Node</link> *node,
+                                             <link linkend="int">int</link> max_depth);
+<link linkend="int">int</link>         <link linkend="lst-edge-get-length">lst_edge_get_length</link>             (<link linkend="LST-Edge">LST_Edge</link> *edge);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="lst-stree-new">lst_stree_new ()</title>
+<indexterm><primary>lst_stree_new</primary></indexterm><programlisting><link linkend="LST-STree">LST_STree</link>*  lst_stree_new                   (<link linkend="LST-StringSet">LST_StringSet</link> *strings);</programlisting>
+<para>
+This is an implementation of Ukkonen's O(n) algorithm for creating
+a suffix tree. Upon return, the tree contains information on all
+the strings contained in the given string set. If you don't want
+to insert strings right away, just pass <literal>NULL</literal>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>strings</parameter>&nbsp;:</term>
+<listitem><simpara> set of strings to build tree with.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> new suffix tree.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-free">lst_stree_free ()</title>
+<indexterm><primary>lst_stree_free</primary></indexterm><programlisting><link linkend="void">void</link>        lst_stree_free                  (<link linkend="LST-STree">LST_STree</link> *tree);</programlisting>
+<para>
+The function releases all the memory claimed by the suffix tree.
+It does not touch any of the strings contained in the tree when
+called, it only cleans up the tree itself. Use when the tree
+was created with <link linkend="lst-stree-new"><function>lst_stree_new()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to clean up.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-init">lst_stree_init ()</title>
+<indexterm><primary>lst_stree_init</primary></indexterm><programlisting><link linkend="int">int</link>         lst_stree_init                  (<link linkend="LST-STree">LST_STree</link> *tree);</programlisting>
+<para>
+This function initializes a tree structure that already exists.
+It is hence faster when you need a suffix tree in a tight loop
+as no data need be allocated and later on freed. It does not check
+if any data is existing in the structure when called; make sure you
+call <link linkend="lst-stree-clear"><function>lst_stree_clear()</function></link> when you want to use the structure repeatedly.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree structure to initialize.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> value &gt; 0 when initialization was successful, 0 otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-clear">lst_stree_clear ()</title>
+<indexterm><primary>lst_stree_clear</primary></indexterm><programlisting><link linkend="void">void</link>        lst_stree_clear                 (<link linkend="LST-STree">LST_STree</link> *tree);</programlisting>
+<para>
+This is the counterpart to <link linkend="lst-stree-init"><function>lst_stree_init()</function></link>. It cleans up the tree
+but does not free the tree structure itself.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to clear.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-add-string">lst_stree_add_string ()</title>
+<indexterm><primary>lst_stree_add_string</primary></indexterm><programlisting><link linkend="void">void</link>        lst_stree_add_string            (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);</programlisting>
+<para>
+The function adds <parameter>string</parameter> to the tree, unless he string is
+a duplicate of an existing string and duplicates are not
+allowed (see <link linkend="lst-stree-allow-duplicates"><function>lst_stree_allow_duplicates()</function></link>). The string you
+pass itself remains unmodified (NOTE: This is *new* as of
+0.4.3. Previously you had to pass a string that libstree
+could release).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to add string to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> string to add.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-remove-string">lst_stree_remove_string ()</title>
+<indexterm><primary>lst_stree_remove_string</primary></indexterm><programlisting><link linkend="void">void</link>        lst_stree_remove_string         (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);</programlisting>
+<para>
+The function checks whether <parameter>tree</parameter> in fact contains <parameter>string</parameter> and
+if that's the case, removes it from the tree.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to remove string from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> string to remove.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-get-string-index">lst_stree_get_string_index ()</title>
+<indexterm><primary>lst_stree_get_string_index</primary></indexterm><programlisting><link linkend="int">int</link>         lst_stree_get_string_index      (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="LST-String">LST_String</link> *string);</programlisting>
+<para>
+Within a suffix tree, every string contained in it is associated with
+an integer index value. This function returns that value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> string to look up.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> index of <parameter>string</parameter> in <parameter>tree</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stree-allow-duplicates">lst_stree_allow_duplicates ()</title>
+<indexterm><primary>lst_stree_allow_duplicates</primary></indexterm><programlisting><link linkend="void">void</link>        lst_stree_allow_duplicates      (<link linkend="LST-STree">LST_STree</link> *tree,
+                                             <link linkend="int">int</link> duplicates_flag);</programlisting>
+<para>
+Depending on the application of the suffix tree, it may be okay to
+have duplicates of strings in the tree or not. By default, duplicates
+are allowed. However, if you want to prevent insertion of a string
+that is already contained in the tree, pass 0.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to modify.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>duplicates_flag</parameter>&nbsp;:</term>
+<listitem><simpara> whether to allow duplicates (&gt; 0) or not (0).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-node-get-parent">lst_node_get_parent ()</title>
+<indexterm><primary>lst_node_get_parent</primary></indexterm><programlisting><link linkend="LST-Node">LST_Node</link>*   lst_node_get_parent             (<link linkend="LST-Node">LST_Node</link> *node);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&nbsp;:</term>
+<listitem><simpara> node to find parent for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the parent node of a node, or <literal>NULL</literal> if no
+such node exists.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-node-is-leaf">lst_node_is_leaf ()</title>
+<indexterm><primary>lst_node_is_leaf</primary></indexterm><programlisting><link linkend="int">int</link>         lst_node_is_leaf                (<link linkend="LST-Node">LST_Node</link> *node);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&nbsp;:</term>
+<listitem><simpara> node to check.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> value &gt; 0 if <parameter>node</parameter> is a leaf, 0 otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-node-is-root">lst_node_is_root ()</title>
+<indexterm><primary>lst_node_is_root</primary></indexterm><programlisting><link linkend="int">int</link>         lst_node_is_root                (<link linkend="LST-Node">LST_Node</link> *node);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&nbsp;:</term>
+<listitem><simpara> node to check.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> value &gt; 0 if <parameter>node</parameter> is the root, 0 otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-node-get-string-length">lst_node_get_string_length ()</title>
+<indexterm><primary>lst_node_get_string_length</primary></indexterm><programlisting><link linkend="int">int</link>         lst_node_get_string_length      (<link linkend="LST-Node">LST_Node</link> *node);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&nbsp;:</term>
+<listitem><simpara> node to query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of string items found on the edges iterated
+when going from the root down to <parameter>node</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-node-get-string">lst_node_get_string ()</title>
+<indexterm><primary>lst_node_get_string</primary></indexterm><programlisting><link linkend="LST-String">LST_String</link>* lst_node_get_string             (<link linkend="LST-Node">LST_Node</link> *node,
+                                             <link linkend="int">int</link> max_depth);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&nbsp;:</term>
+<listitem><simpara> node whose string to return.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max_depth</parameter>&nbsp;:</term>
+<listitem><simpara> make string no longer than <parameter>max_depth</parameter> items.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly allocated string consisting of all the string
+elements found when iterating from the root down to <parameter>node</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-edge-get-length">lst_edge_get_length ()</title>
+<indexterm><primary>lst_edge_get_length</primary></indexterm><programlisting><link linkend="int">int</link>         lst_edge_get_length             (<link linkend="LST-Edge">LST_Edge</link> *edge);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>edge</parameter>&nbsp;:</term>
+<listitem><simpara> edge to query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the length of the substring associated with that edge.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,2157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>lst_string</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="libstree Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="PREVIOUS"
+TITLE="lst_structs"
+HREF="libstree-lst-structs.html"><LINK
+REL="NEXT"
+TITLE="lst_debug"
+HREF="libstree-lst-debug.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>libstree Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-structs.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-debug.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="LIBSTREE-LST-STRING"
+></A
+>lst_string</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN798"
+></A
+><H2
+>Name</H2
+>lst_string&nbsp;--&nbsp;</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN801"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;
+
+#define     <A
+HREF="libstree-lst-string.html#LST-STRING-END:CAPS"
+>LST_STRING_END</A
+>
+#define     <A
+HREF="libstree-lst-string.html#LST-EMPTY-STRING:CAPS"
+>LST_EMPTY_STRING</A
+>
+void        (<A
+HREF="libstree-lst-string.html#LST-STRINGCB"
+>*LST_StringCB</A
+>)                 (LST_String *string,
+                                             void *data);
+int         (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>*LST_StringItemCmpFunc</A
+>)        (void *item1,
+                                             void *item2);
+char*       (<A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>*LST_StringPrintFunc</A
+>)          (LST_StringIndex *index);
+void        (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>*LST_StringItemCopyFunc</A
+>)       (void *src,
+                                             void *dst);
+LST_String* <A
+HREF="libstree-lst-string.html#LST-STRING-NEW"
+>lst_string_new</A
+>                  (void *data,
+                                             u_int item_size,
+                                             u_int num_items);
+void        <A
+HREF="libstree-lst-string.html#LST-STRING-INIT"
+>lst_string_init</A
+>                 (LST_String *string,
+                                             void *data,
+                                             u_int item_size,
+                                             u_int num_items);
+void        <A
+HREF="libstree-lst-string.html#LST-STRING-FREE"
+>lst_string_free</A
+>                 (LST_String *string);
+void*       <A
+HREF="libstree-lst-string.html#LST-STRING-FREE-KEEP-DATA"
+>lst_string_free_keep_data</A
+>       (LST_String *string);
+u_int       <A
+HREF="libstree-lst-string.html#LST-STRING-GET-LENGTH"
+>lst_string_get_length</A
+>           (LST_String *string);
+void*       <A
+HREF="libstree-lst-string.html#LST-STRING-GET-ITEM"
+>lst_string_get_item</A
+>             (LST_String *string,
+                                             u_int index);
+const char* <A
+HREF="libstree-lst-string.html#LST-STRING-PRINT"
+>lst_string_print</A
+>                (LST_String *string);
+void        <A
+HREF="libstree-lst-string.html#LST-STRING-ITEM-COPY"
+>lst_string_item_copy</A
+>            (LST_String *src,
+                                             u_int src_index,
+                                             LST_String *dst,
+                                             u_int dst_index);
+int         <A
+HREF="libstree-lst-string.html#LST-STRING-EQ"
+>lst_string_eq</A
+>                   (LST_String *s1,
+                                             u_int item1,
+                                             LST_String *s2,
+                                             u_int item2);
+u_int       <A
+HREF="libstree-lst-string.html#LST-STRING-ITEMS-COMMON"
+>lst_string_items_common</A
+>         (LST_String *s1,
+                                             u_int off1,
+                                             LST_String *s2,
+                                             u_int off2,
+                                             u_int max_len);
+char*       <A
+HREF="libstree-lst-string.html#LST-STRING-PRINT-HEX"
+>lst_string_print_hex</A
+>            (LST_StringIndex *index);
+LST_StringClass* <A
+HREF="libstree-lst-string.html#LST-STRINGCLASS-NEW"
+>lst_stringclass_new</A
+>        (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>LST_StringItemCmpFunc</A
+> cmp_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>LST_StringItemCopyFunc</A
+> copy_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>LST_StringPrintFunc</A
+> print_func);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGCLASS-FREE"
+>lst_stringclass_free</A
+>            (LST_StringClass *sclass);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGCLASS-SET-DEFAULTS"
+>lst_stringclass_set_defaults</A
+>    (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>LST_StringItemCmpFunc</A
+> cmp_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>LST_StringItemCopyFunc</A
+> copy_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>LST_StringPrintFunc</A
+> print_func);
+LST_StringClass* <A
+HREF="libstree-lst-string.html#LST-STRING-SET-CLASS"
+>lst_string_set_class</A
+>       (LST_String *string,
+                                             LST_StringClass *sclass);
+void        <A
+HREF="libstree-lst-string.html#LST-STRING-INDEX-INIT"
+>lst_string_index_init</A
+>           (LST_StringIndex *index);
+void        <A
+HREF="libstree-lst-string.html#LST-STRING-INDEX-COPY"
+>lst_string_index_copy</A
+>           (LST_StringIndex *src,
+                                             LST_StringIndex *dst);
+LST_StringSet* <A
+HREF="libstree-lst-string.html#LST-STRINGSET-NEW"
+>lst_stringset_new</A
+>            (void);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGSET-ADD"
+>lst_stringset_add</A
+>               (LST_StringSet *set,
+                                             LST_String *string);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGSET-REMOVE"
+>lst_stringset_remove</A
+>            (LST_StringSet *set,
+                                             LST_String *string);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGSET-FOREACH"
+>lst_stringset_foreach</A
+>           (LST_StringSet *set,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGCB"
+>LST_StringCB</A
+> callback,
+                                             void *user_data);
+void        <A
+HREF="libstree-lst-string.html#LST-STRINGSET-FREE"
+>lst_stringset_free</A
+>              (LST_StringSet *set);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN912"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN915"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN917"
+></A
+><H3
+><A
+NAME="LST-STRING-END:CAPS"
+></A
+>LST_STRING_END</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define LST_STRING_END   UINT_MAX</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN924"
+></A
+><H3
+><A
+NAME="LST-EMPTY-STRING:CAPS"
+></A
+>LST_EMPTY_STRING</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define LST_EMPTY_STRING UINT_MAX</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN931"
+></A
+><H3
+><A
+NAME="LST-STRINGCB"
+></A
+>LST_StringCB ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*LST_StringCB)                 (LST_String *string,
+                                             void *data);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string passed in.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> arbitrary user data.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN953"
+></A
+><H3
+><A
+NAME="LST-STRINGITEMCMPFUNC"
+></A
+>LST_StringItemCmpFunc ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         (*LST_StringItemCmpFunc)        (void *item1,
+                                             void *item2);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function compares two string items.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>item1</TT
+>&nbsp;:</DT
+><DD
+><P
+> first string item.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>item2</TT
+>&nbsp;:</DT
+><DD
+><P
+> second string item.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> 0 when equal, -1 when the first item is
+"smaller" than the second, 1 when the first is
+"larger" than the second.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN980"
+></A
+><H3
+><A
+NAME="LST-STRINGPRINTFUNC"
+></A
+>LST_StringPrintFunc ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>char*       (*LST_StringPrintFunc)          (LST_StringIndex *index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function creates a string representation of the
+subrange of the string specified in <TT
+CLASS="PARAMETER"
+>index</TT
+> and returns
+it. The result should be statically allocated and not need
+to be freed by the caller. To make the function more robust you
+should make it work even if it is called multiple times withing
+the same <GTKDOCLINK
+HREF="PRINTF"
+><CODE
+CLASS="FUNCTION"
+>printf()</CODE
+></GTKDOCLINK
+>-like function.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>index</TT
+>&nbsp;:</DT
+><DD
+><P
+> substring specifier.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> string representation.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1004"
+></A
+><H3
+><A
+NAME="LST-STRINGITEMCOPYFUNC"
+></A
+>LST_StringItemCopyFunc ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        (*LST_StringItemCopyFunc)       (void *src,
+                                             void *dst);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Functions of this signature copy a string item at <TT
+CLASS="PARAMETER"
+>src</TT
+> over to a
+string item at *dst.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>src</TT
+>&nbsp;:</DT
+><DD
+><P
+> address of source item.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>dst</TT
+>&nbsp;:</DT
+><DD
+><P
+> address of destination item.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1027"
+></A
+><H3
+><A
+NAME="LST-STRING-NEW"
+></A
+>lst_string_new ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_String* lst_string_new                  (void *data,
+                                             u_int item_size,
+                                             u_int num_items);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function creates <TT
+CLASS="PARAMETER"
+>item_size</TT
+> * <TT
+CLASS="PARAMETER"
+>num_items</TT
+> bytes of memory
+and copies <TT
+CLASS="PARAMETER"
+>data</TT
+> into that area, then returns the new string.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> data to store in string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>item_size</TT
+>&nbsp;:</DT
+><DD
+><P
+> size of a single string item, in bytes.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>num_items</TT
+>&nbsp;:</DT
+><DD
+><P
+> number of items the string stores.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new string, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> when out of memory.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1064"
+></A
+><H3
+><A
+NAME="LST-STRING-INIT"
+></A
+>lst_string_init ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_string_init                 (LST_String *string,
+                                             void *data,
+                                             u_int item_size,
+                                             u_int num_items);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function initializes an existing string object, making it
+use the passed data directly without copying it. It is thus faster
+than lst_string_new, and recommended for tight loops, etc.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string object to initialize.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>data</TT
+>&nbsp;:</DT
+><DD
+><P
+> string data to initialize with.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>item_size</TT
+>&nbsp;:</DT
+><DD
+><P
+> size of a single string item, in bytes.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>num_items</TT
+>&nbsp;:</DT
+><DD
+><P
+> length of string.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1098"
+></A
+><H3
+><A
+NAME="LST-STRING-FREE"
+></A
+>lst_string_free ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_string_free                 (LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function cleans up all of the memory occupied by <TT
+CLASS="PARAMETER"
+>string</TT
+>.
+It is safe to call this on strings initialized using <A
+HREF="libstree-lst-string.html#LST-STRING-INIT"
+><CODE
+CLASS="FUNCTION"
+>lst_string_init()</CODE
+></A
+>
+which are using external data, as in that case the string data
+itself is not touched.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to clean up.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1117"
+></A
+><H3
+><A
+NAME="LST-STRING-FREE-KEEP-DATA"
+></A
+>lst_string_free_keep_data ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void*       lst_string_free_keep_data       (LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function cleans up the memory occupied by <TT
+CLASS="PARAMETER"
+>string</TT
+> without
+releasing the actual string data, which it returns to the caller.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to clean up.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> actual string data.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1139"
+></A
+><H3
+><A
+NAME="LST-STRING-GET-LENGTH"
+></A
+>lst_string_get_length ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>u_int       lst_string_get_length           (LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function returns the number of items in the string. Always
+use this function and never access any of the string members directly
+to obtain that value.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to return length of.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> length of <TT
+CLASS="PARAMETER"
+>string</TT
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1161"
+></A
+><H3
+><A
+NAME="LST-STRING-GET-ITEM"
+></A
+>lst_string_get_item ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void*       lst_string_get_item             (LST_String *string,
+                                             u_int index);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to look up item in.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>index</TT
+>&nbsp;:</DT
+><DD
+><P
+> number of element in string to find, starting at 0.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> a pointer to the element in the string at position <TT
+CLASS="PARAMETER"
+>index</TT
+>,
+or <TT
+CLASS="LITERAL"
+>NULL</TT
+> when the index is invalid.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1190"
+></A
+><H3
+><A
+NAME="LST-STRING-PRINT"
+></A
+>lst_string_print ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>const char* lst_string_print                (LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The creates an ASCII string verions of <TT
+CLASS="PARAMETER"
+>string</TT
+> and returns it as
+a pointer to static memory. The way this mapping is implemented depends
+on the string class active for this string, see @<A
+HREF="libstree-lst-string.html#LST-STRING-SET-CLASS"
+><CODE
+CLASS="FUNCTION"
+>lst_string_set_class()</CODE
+></A
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to print.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> pointer to static string buffer.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1214"
+></A
+><H3
+><A
+NAME="LST-STRING-ITEM-COPY"
+></A
+>lst_string_item_copy ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_string_item_copy            (LST_String *src,
+                                             u_int src_index,
+                                             LST_String *dst,
+                                             u_int dst_index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function copies the item found at <TT
+CLASS="PARAMETER"
+>src_index</TT
+> in <TT
+CLASS="PARAMETER"
+>src</TT
+> into the
+item <TT
+CLASS="PARAMETER"
+>dst_index</TT
+> of string <TT
+CLASS="PARAMETER"
+>dst</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>src</TT
+>&nbsp;:</DT
+><DD
+><P
+> source string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>src_index</TT
+>&nbsp;:</DT
+><DD
+><P
+> item in source string, starting at 0.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>dst</TT
+>&nbsp;:</DT
+><DD
+><P
+> destination string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>dst_index</TT
+>&nbsp;:</DT
+><DD
+><P
+> item to copy to.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1252"
+></A
+><H3
+><A
+NAME="LST-STRING-EQ"
+></A
+>lst_string_eq ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_string_eq                   (LST_String *s1,
+                                             u_int item1,
+                                             LST_String *s2,
+                                             u_int item2);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function compares the items specified via the input parameters.
+The way this is implemented depends on the string class for the
+strings involved, see <A
+HREF="libstree-lst-string.html#LST-STRING-SET-CLASS"
+><CODE
+CLASS="FUNCTION"
+>lst_string_set_class()</CODE
+></A
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>s1</TT
+>&nbsp;:</DT
+><DD
+><P
+> first string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>item1</TT
+>&nbsp;:</DT
+><DD
+><P
+> item in <TT
+CLASS="PARAMETER"
+>s1</TT
+>.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>s2</TT
+>&nbsp;:</DT
+><DD
+><P
+> second string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>item2</TT
+>&nbsp;:</DT
+><DD
+><P
+> item in <TT
+CLASS="PARAMETER"
+>s2</TT
+>.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> value &gt; 0 when equal, 0 otherwise.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1295"
+></A
+><H3
+><A
+NAME="LST-STRING-ITEMS-COMMON"
+></A
+>lst_string_items_common ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>u_int       lst_string_items_common         (LST_String *s1,
+                                             u_int off1,
+                                             LST_String *s2,
+                                             u_int off2,
+                                             u_int max_len);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function compares items in <TT
+CLASS="PARAMETER"
+>s1</TT
+> and <TT
+CLASS="PARAMETER"
+>s2</TT
+> from the given offsets,
+counting how many are equal. The way the comparison works depends on
+the string class active for the strings involved, see <A
+HREF="libstree-lst-string.html#LST-STRING-SET-CLASS"
+><CODE
+CLASS="FUNCTION"
+>lst_string_set_class()</CODE
+></A
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>s1</TT
+>&nbsp;:</DT
+><DD
+><P
+> first string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>off1</TT
+>&nbsp;:</DT
+><DD
+><P
+> item in <TT
+CLASS="PARAMETER"
+>s1</TT
+>.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>s2</TT
+>&nbsp;:</DT
+><DD
+><P
+> second string.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>off2</TT
+>&nbsp;:</DT
+><DD
+><P
+> item in <TT
+CLASS="PARAMETER"
+>s2</TT
+>.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>max_len</TT
+>&nbsp;:</DT
+><DD
+><P
+> maximum number of items to compare.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> number of identical items.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1346"
+></A
+><H3
+><A
+NAME="LST-STRING-PRINT-HEX"
+></A
+>lst_string_print_hex ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>char*       lst_string_print_hex            (LST_StringIndex *index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>For convenience, this is a printer implementation that returns a hex
+representation of the data contained in the string. You can call
+this function up to three times from within the same <GTKDOCLINK
+HREF="PRINTF"
+><CODE
+CLASS="FUNCTION"
+>printf()</CODE
+></GTKDOCLINK
+>-like
+function.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>index</TT
+>&nbsp;:</DT
+><DD
+><P
+> string region to print.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> hex representation in statically allocated string, copy
+this if you need to keep it around.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1369"
+></A
+><H3
+><A
+NAME="LST-STRINGCLASS-NEW"
+></A
+>lst_stringclass_new ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_StringClass* lst_stringclass_new        (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>LST_StringItemCmpFunc</A
+> cmp_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>LST_StringItemCopyFunc</A
+> copy_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>LST_StringPrintFunc</A
+> print_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Strings are made generic in libstree through virtualization of the
+essential string operations. Each string in libstree has a string class
+specifying how these operations are implemented. By default, the strings
+support ASCII strings of single-byte characters as normally used. Using
+this function, you can create your own string classes. If you want to
+keep some of the default implementations, just pass <TT
+CLASS="LITERAL"
+>NULL</TT
+> for those.
+Get rid of the class using <A
+HREF="libstree-lst-string.html#LST-STRINGCLASS-FREE"
+><CODE
+CLASS="FUNCTION"
+>lst_stringclass_free()</CODE
+></A
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>cmp_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string item compare function.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>copy_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string item copy function.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>print_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string print function.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new string class.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1405"
+></A
+><H3
+><A
+NAME="LST-STRINGCLASS-FREE"
+></A
+>lst_stringclass_free ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringclass_free            (LST_StringClass *sclass);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function releases the memory occupied by <TT
+CLASS="PARAMETER"
+>sclass</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>sclass</TT
+>&nbsp;:</DT
+><DD
+><P
+> class to clean up.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1422"
+></A
+><H3
+><A
+NAME="LST-STRINGCLASS-SET-DEFAULTS"
+></A
+>lst_stringclass_set_defaults ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringclass_set_defaults    (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>LST_StringItemCmpFunc</A
+> cmp_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>LST_StringItemCopyFunc</A
+> copy_func,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>LST_StringPrintFunc</A
+> print_func);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function sets new default string manipulation functions for all
+strings. Beware, this will also implicitly change the implementations
+for all previously created strings with default handlers. If you want
+the original handler, pass <TT
+CLASS="LITERAL"
+>NULL</TT
+> for the implementation desired.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>cmp_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string item compare function.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>copy_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string item copy function.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>print_func</TT
+>&nbsp;:</DT
+><DD
+><P
+> string print function.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1451"
+></A
+><H3
+><A
+NAME="LST-STRING-SET-CLASS"
+></A
+>lst_string_set_class ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_StringClass* lst_string_set_class       (LST_String *string,
+                                             LST_StringClass *sclass);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Use this function to set a string's class. Pass <TT
+CLASS="LITERAL"
+>NULL</TT
+> to reset to
+default class.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to change string class for.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>sclass</TT
+>&nbsp;:</DT
+><DD
+><P
+> new string class.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> the previously set string class.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1479"
+></A
+><H3
+><A
+NAME="LST-STRING-INDEX-INIT"
+></A
+>lst_string_index_init ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_string_index_init           (LST_StringIndex *index);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function initializes a string index. Used internally.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>index</TT
+>&nbsp;:</DT
+><DD
+><P
+> index initialized.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1495"
+></A
+><H3
+><A
+NAME="LST-STRING-INDEX-COPY"
+></A
+>lst_string_index_copy ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_string_index_copy           (LST_StringIndex *src,
+                                             LST_StringIndex *dst);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Used internally.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>src</TT
+>&nbsp;:</DT
+><DD
+><P
+> source index.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>dst</TT
+>&nbsp;:</DT
+><DD
+><P
+> destination index.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1517"
+></A
+><H3
+><A
+NAME="LST-STRINGSET-NEW"
+></A
+>lst_stringset_new ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_StringSet* lst_stringset_new            (void);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function creates a new stringset. Stringsets are the way you
+pass multiple strings to an algorithm. You basically create a string
+set, then add strings to the set, pass the set to an algorithm, and
+clean up the set afterwards.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new, empty set.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1532"
+></A
+><H3
+><A
+NAME="LST-STRINGSET-ADD"
+></A
+>lst_stringset_add ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringset_add               (LST_StringSet *set,
+                                             LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function adds a string to the set.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>set</TT
+>&nbsp;:</DT
+><DD
+><P
+> set to add string to.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to add.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1554"
+></A
+><H3
+><A
+NAME="LST-STRINGSET-REMOVE"
+></A
+>lst_stringset_remove ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringset_remove            (LST_StringSet *set,
+                                             LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function removes a string from a string set.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>set</TT
+>&nbsp;:</DT
+><DD
+><P
+> set to remove string from.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to remove.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1576"
+></A
+><H3
+><A
+NAME="LST-STRINGSET-FOREACH"
+></A
+>lst_stringset_foreach ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringset_foreach           (LST_StringSet *set,
+                                             <A
+HREF="libstree-lst-string.html#LST-STRINGCB"
+>LST_StringCB</A
+> callback,
+                                             void *user_data);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function calls <TT
+CLASS="PARAMETER"
+>callback</TT
+> for each string in <TT
+CLASS="PARAMETER"
+>set</TT
+>, passing it
+that string and <TT
+CLASS="PARAMETER"
+>user_data</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>set</TT
+>&nbsp;:</DT
+><DD
+><P
+> set to iterate.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>callback</TT
+>&nbsp;:</DT
+><DD
+><P
+> callback to call for each item.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>user_data</TT
+>&nbsp;:</DT
+><DD
+><P
+> arbitrary data passed through to <TT
+CLASS="PARAMETER"
+>callback</TT
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1608"
+></A
+><H3
+><A
+NAME="LST-STRINGSET-FREE"
+></A
+>lst_stringset_free ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stringset_free              (LST_StringSet *set);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function releases all the memory claimed by <TT
+CLASS="PARAMETER"
+>set</TT
+>, including
+all the strings it contains.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>set</TT
+>&nbsp;:</DT
+><DD
+><P
+> set to clean up.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="libstree-lst-structs.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="libstree-lst-debug.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>lst_structs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>lst_debug</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

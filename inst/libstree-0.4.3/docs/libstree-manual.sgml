@@ -1,0 +1,306 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY lst-latest-rel "0.4">
+<!ENTITY libstree "<function>libstree</function>">
+<!ENTITY lst-algorithms SYSTEM "sgml/lst_algorithms.sgml">
+<!ENTITY lst-stree SYSTEM "sgml/lst_stree.sgml">
+<!ENTITY lst-structs SYSTEM "sgml/lst_structs.sgml">
+<!ENTITY lst-string SYSTEM "sgml/lst_string.sgml">
+<!ENTITY lst-debug SYSTEM "sgml/lst_debug.sgml">
+]>
+<book id="index">
+  <title>libstree Manual</title>
+  <bookinfo>
+    <abstract>
+      <para>
+	This is documentation for release &lst-latest-rel; of &libstree;.
+	&libstree; is free software under terms of the BSD license as given
+	in the <link linkend="license" endterm="license.title">License</link>
+	section. This documentation is always available on the web for download
+	and online browsing at
+	<ulink url="http://www.cl.cam.ac.uk/~cpk25/libstree/manual/index.html">http://www.cl.cam.ac.uk/~cpk25/libstree/manual/index.html</ulink>.
+      </para>
+      <para>Feedback, patches, binary packages and bugreports are all welcome, please send
+      feedback directly to the author at <email>christian.kreibich -AT- cl.cam.ac.uk</email>.
+      </para>
+      <para>
+	Yet Another SRG Production &mdash;
+	<ulink url="http://www.cl.cam.ac.uk/Research/SRG/">http://www.cl.cam.ac.uk/Research/SRG/</ulink>
+      </para>
+    </abstract>
+  </bookinfo>
+
+  <chapter>
+    <title>Introduction</title>
+      <para>
+      Welcome! You're looking at the manual for &libstree;, a generic suffix tree
+      implementation. Thanks for reading this.
+  </para>
+    <sect1>
+      <title>What Are Suffix Trees?</title>
+      <para>
+      Suffix trees are a building block needed for efficient implementations of many
+      string algorithms. If you've found this library, you probably already know why
+      you want to use them. If not, have a look at the comprehensive textbook by 
+      <link linkend="bib-gusfield">Dan Gusfield</link>.
+      </para>
+     </sect1>
+    <sect1>
+      <title>What does &libstree; provide?</title>
+      <para>
+      &libstree; is a <emphasis>generic</emphasis> suffix tree implementation, written
+      in C. It can handle arbitrary data structures as elements of a string. It is
+      therefore not limited to simple ASCII character strings, like most demo implementations
+      of suffix algorithms are.
+      </para>
+      <para>
+      Suffix tree generation in &libstree; is highly efficient and implemented using
+      the algorithm by <link linkend="bib-ukkonen">Ukkonen</link>, which means that
+      &libstree; builds suffix trees in time linear to the length of the strings
+      (assuming that string element comparisons can be done in O(1)).
+      </para>
+      <para>
+      &libstree; can handle multiple strings per suffix tree, including dynamic insertion
+      and removal of strings. It provides various means of obtaining information about
+      nodes in the tree, such as depth-first and breadth-first iteration, leaves iteration,
+      and bottom-up iteration.
+      </para>
+      <para>
+      &libstree; provides implementations of longest-common-substring and longest-repeated-substring
+      algorithms, as examples of how to build complex algorithms using the suffix tree
+      primitives.
+      </para>
+     </sect1>
+    <sect1>
+      <title>Why C?</title>
+      <para>
+      Because I needed a library available from within another C program, and because
+      there didn't seem to be a good, reusable C implementation around.
+      </para>
+      </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Using &libstree;</title>
+    <para>
+    Using &libstree; is hopefully really quite simple. As an example, let's walk through
+    one of the test programs found in the <filename>test</filename> directory of the
+    source distribution:
+    <filename>lcshex.c</filename>, which calculates the longest common byte sequence of
+    the programs you pass it as command line arguments
+    <footnote><para>What do you mean, "What is this good for!?" :)"</para></footnote>.
+    </para>
+    <para>
+    Since &libstree; operates on arbitrary strings, it needs a string model that leaves
+    the implementation of the common string operations up to the user. String families that
+    use a given set of such operations is called a
+    <emphasis>string class</emphasis> (called <type>LST_StringClass</type>).
+    Strings are instances of the <type>LST_String</type> type, and suffix
+    trees are instances of <type>LST_STree</type> type.    
+    Each string belongs to a string class. Since it will often be the case that an application
+    uses only a single class of strings (e.g., byte strings), there is a <emphasis>default</emphasis>
+    string class, whose properties you can specify once and then forget about it.
+    </para>
+    <para>
+    &libstree; currently uses three string-class-specific operations:
+    <itemizedlist>
+      <listitem>
+        <para>
+	A function to compare string items (<link linkend="LST-StringItemCmpFunc">LST_StringItemCmpFunc</link>)
+	</para>
+	</listitem>
+        <listitem>
+        <para>
+	A function to copy string items (<link linkend="LST-StringItemCopyFunc">LST_StringItemCopyFunc</link>)
+	</para>
+	</listitem>
+        <listitem>
+        <para>
+	A function to convert a single string into an ASCII string (<link linkend="LST-StringPrintFunc">LST_StringPrintFunc</link>)
+	</para>
+	</listitem>
+    </itemizedlist>
+    The default operations assume byte strings, so compare function uses <function>memcmp()</function>
+    on the memory area that the string item occupies, uses simple character assignment to copy an item.
+    </para>
+    <para>
+    Our little test program works on binary files, so we can use the compare and copy
+    function, but for output, we prefer hexadecimal strings. &libstree; already provides
+    a function that does this, and we use it to override the default.
+    </para>
+    <para>
+    Let's look at some code. We will need a suffix tree and a few strings; also, we override
+    the output method as describes above.
+    </para>
+
+  <programlisting>
+  LST_STree       *tree;
+  LST_StringSet   *set, *result;
+  LST_String      *string;
+
+  /* Create a string class with a special print method, otherwise
+   * we can use the defaults:
+   */
+  lst_stringclass_set_defaults(NULL, NULL, lst_string_print_hex);
+  </programlisting>
+
+  <para>
+  Since most applications will have to handle multiple strings at a time, a container for
+  a number of strings is convenient. &libstree; provides the type <type>LST_StringSet</type>
+  that can hold a set of strings. Let's allocate such a set:
+  </para>    
+
+  <programlisting>
+  /* Create a string set to conveniently hold all our strings: */
+  set = lst_stringset_new();
+  </programlisting>
+
+  <para>
+  Now, we check for each of the program names that the user passed in, whether
+  the file exists and if we can read it. We then allocate a chunk of memory and
+  read the entire program code into it:
+  </para>    
+
+  <programlisting>
+  FILE *f;
+  u_char *data;
+  struct stat st;
+
+  /* stat() the file, open file handle etc, now read content: */ 
+
+  if (fread(data, 1, st.st_size, f) != (size_t) st.st_size)
+    {
+      printf("Error reading %s -- skipping.\n", argv[i]);
+      free(data);
+       continue;
+    }
+  </programlisting>
+
+  <para>
+  We're ready to create a string object from this bytesequence and add it
+  to our string set.
+  </para>
+
+  <programlisting>
+  string = lst_string_new(data, 1, st.st_size);
+  lst_stringset_add(set, string);
+  </programlisting>
+
+  <para>
+  Now, let's build a suffix tree for all the strings we just put into our string set:
+  </para>
+
+  <programlisting>
+  /* Create a suffix tree for all strings in the set: */
+  tree = lst_stree_new(set);
+  </programlisting>
+
+  <para>
+  Now find the longest common substring of all those strings.
+  </para>
+
+  <programlisting>
+  /* Find longest common substring(s) */
+  result = lst_alg_longest_common_substring(tree, 0, 0);
+  </programlisting>
+
+  <para>
+  Note that the result is also a string set -- there may be multiple longest
+  strings, of the same length. You can limit the results by requesting only
+  substrings of a given minimum and maximum length, see
+  <link linkend="lst-alg-longest-common-substring">lst_alg_longest_common_substring()</link>.
+  Finally, let's print each of the strings out to the console. The string set
+  contents can be iterated using
+  <link linkend="lst-stringset-foreach">lst_stringset_foreach()</link>:
+  </para>
+
+  <programlisting>
+  /* Print them out: */
+  lst_stringset_foreach(result, string_cb, NULL);
+  </programlisting>
+
+  <para>
+  That's it. Please browse the other test programs to get a better feeling for
+  the API.
+  </para>
+  </chapter>
+
+  <chapter id="api">
+    <title id="api.title">libstree API Reference</title>
+    &lst-algorithms;
+    &lst-stree;
+    &lst-structs;
+    &lst-string;
+    &lst-debug;
+  </chapter>
+
+    <appendix>
+    <title>Appendix</title>
+    <sect1 id="license">
+      <title id="license.title">License</title>
+      <para>
+	Copyright (C) 2003, Christian Kreibich and
+	various contributors.
+      </para>
+      <para>	
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to
+	deal in the Software without restriction, including without limitation the
+	rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+	sell copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+      </para>
+      <para>
+	The above copyright notice and this permission notice shall be included in
+	all copies of the Software and its documentation and acknowledgment shall be
+	given in the documentation and software packages that this Software was
+	used.
+      </para>
+      <para>	
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+	THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.	
+      </para>
+    </sect1>
+    <sect1 id="about">
+      <title>About this document</title>
+      <para>
+	This documentation is maintained in DocBook SGML, API documentation is
+	extracted from the code using the <command>gtk-doc</command> tools.
+      </para>
+    </sect1>
+  </appendix>
+
+<bibliography>
+
+  <biblioentry id="bib-gusfield">
+    <author>	  
+      <firstname>Dan</firstname>
+      <surname>Gusfield</surname>
+    </author>
+    <title>Algorithms on Strings, Trees, and Sequences</title>
+    <publisher>
+      <publishername>Cambridge University Press</publishername>
+    </publisher>
+    <date>1997</date>
+  </biblioentry>	
+
+  <biblioentry id="bib-ukkonen">
+    <author>	  
+      <firstname>Esko</firstname>
+      <surname>Ukkonen</surname>
+    </author>
+    <title>On-line Construction of Suffix Trees</title>
+    <publisher>
+      <publishername>Algorithmica</publishername>
+    </publisher>
+    <issuenum>14</issuenum>
+    <date>1995</date>
+    <pagenums>249-260</pagenums>
+  </biblioentry>	
+
+</bibliography>
+
+</book>

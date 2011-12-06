@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>lst_debug</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="libstree Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="PREVIOUS"
+TITLE="lst_string"
+HREF="libstree-lst-string.html"><LINK
+REL="NEXT"
+TITLE="Appendix"
+HREF="a1793.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>libstree Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-string.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a1793.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="LIBSTREE-LST-DEBUG"
+></A
+>lst_debug</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN1630"
+></A
+><H2
+>Name</H2
+>lst_debug&nbsp;--&nbsp;</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN1633"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;
+
+void        <A
+HREF="libstree-lst-debug.html#LST-DEBUG-PRINT-TREE"
+>lst_debug_print_tree</A
+>            (LST_STree *tree);
+#define     <A
+HREF="libstree-lst-debug.html#D-PRINT-TREE:CAPS"
+>D_PRINT_TREE</A
+>                    (tree)
+char*       <A
+HREF="libstree-lst-debug.html#LST-DEBUG-PRINT-SUBSTRING"
+>lst_debug_print_substring</A
+>       (LST_String *string,
+                                             u_int start_index,
+                                             u_int end_index,
+                                             u_int extra_index);
+#define     <A
+HREF="libstree-lst-debug.html#LST-STDERR"
+>lst_stderr</A
+>                      (...)
+#define     <A
+HREF="libstree-lst-debug.html#D:CAPS"
+>D</A
+>                               (x)
+#define     <A
+HREF="libstree-lst-debug.html#D-ASSERT:CAPS"
+>D_ASSERT</A
+>                        (exp, msg)
+#define     <A
+HREF="libstree-lst-debug.html#D-ASSERT-PTR:CAPS"
+>D_ASSERT_PTR</A
+>                    (ptr)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN1650"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN1653"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1655"
+></A
+><H3
+><A
+NAME="LST-DEBUG-PRINT-TREE"
+></A
+>lst_debug_print_tree ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_debug_print_tree            (LST_STree *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>We make this always available, not only with -DDEBUG.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to print.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1671"
+></A
+><H3
+><A
+NAME="D-PRINT-TREE:CAPS"
+></A
+>D_PRINT_TREE()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     D_PRINT_TREE(tree)</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is just a wrapper around <A
+HREF="libstree-lst-debug.html#LST-DEBUG-PRINT-TREE"
+><CODE
+CLASS="FUNCTION"
+>lst_debug_print_tree()</CODE
+></A
+>,
+so nothing will be printed if debugging isn't enabled.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to print.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1687"
+></A
+><H3
+><A
+NAME="LST-DEBUG-PRINT-SUBSTRING"
+></A
+>lst_debug_print_substring ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>char*       lst_debug_print_substring       (LST_String *string,
+                                             u_int start_index,
+                                             u_int end_index,
+                                             u_int extra_index);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+></P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>start_index</TT
+>&nbsp;:</DT
+><DD
+><P
+></P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>end_index</TT
+>&nbsp;:</DT
+><DD
+><P
+></P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>extra_index</TT
+>&nbsp;:</DT
+><DD
+><P
+></P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+>&#13;</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1725"
+></A
+><H3
+><A
+NAME="LST-STDERR"
+></A
+>lst_stderr()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define lst_stderr(...) fprintf(stderr, __VA_ARGS__)</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>...</TT
+>&nbsp;:</DT
+><DD
+><P
+>&#13;</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1738"
+></A
+><H3
+><A
+NAME="D:CAPS"
+></A
+>D()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     D(x)</PRE
+></TD
+></TR
+></TABLE
+><P
+>Use this macro to output debugging information. <TT
+CLASS="PARAMETER"
+>x</TT
+> is
+the content as you would pass it to <GTKDOCLINK
+HREF="PRINTF"
+><CODE
+CLASS="FUNCTION"
+>printf()</CODE
+></GTKDOCLINK
+>, including
+braces to make the arguments appear as one argument to
+the macro. The macro is automatically deleted if -DDEBUG
+is not passed at build time.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>x</TT
+>&nbsp;:</DT
+><DD
+><P
+> debugging information.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1755"
+></A
+><H3
+><A
+NAME="D-ASSERT:CAPS"
+></A
+>D_ASSERT()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     D_ASSERT(exp, msg)</PRE
+></TD
+></TR
+></TABLE
+><P
+>The macro outputs <TT
+CLASS="PARAMETER"
+>msg</TT
+> if the expression <TT
+CLASS="PARAMETER"
+>exp</TT
+> evaluates
+to <TT
+CLASS="LITERAL"
+>FALSE</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>exp</TT
+>&nbsp;:</DT
+><DD
+><P
+> expression to evaluate.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>msg</TT
+>&nbsp;:</DT
+><DD
+><P
+> message to output if <TT
+CLASS="PARAMETER"
+>exp</TT
+> fails.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN1778"
+></A
+><H3
+><A
+NAME="D-ASSERT-PTR:CAPS"
+></A
+>D_ASSERT_PTR()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>#define     D_ASSERT_PTR(ptr)</PRE
+></TD
+></TR
+></TABLE
+><P
+>The macro asserts the existence (i.e. non-NULL-ness) of
+the given pointer, and outpus a message if it is <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>ptr</TT
+>&nbsp;:</DT
+><DD
+><P
+> pointer to check.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="libstree-lst-string.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a1793.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>lst_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Appendix</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,163 @@
+<refentry id="libstree-lst-debug">
+<refmeta>
+<refentrytitle>lst_debug</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBSTREE Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>lst_debug</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+<link linkend="void">void</link>        <link linkend="lst-debug-print-tree">lst_debug_print_tree</link>            (<link linkend="LST-STree">LST_STree</link> *tree);
+#define     <link linkend="D-PRINT-TREE:CAPS">D_PRINT_TREE</link>                    (tree)
+<link linkend="char">char</link>*       <link linkend="lst-debug-print-substring">lst_debug_print_substring</link>       (<link linkend="LST-String">LST_String</link> *string,
+                                             <link linkend="u-int">u_int</link> start_index,
+                                             <link linkend="u-int">u_int</link> end_index,
+                                             <link linkend="u-int">u_int</link> extra_index);
+#define     <link linkend="lst-stderr">lst_stderr</link>                      (...)
+#define     <link linkend="D:CAPS">D</link>                               (x)
+#define     <link linkend="D-ASSERT:CAPS">D_ASSERT</link>                        (exp, msg)
+#define     <link linkend="D-ASSERT-PTR:CAPS">D_ASSERT_PTR</link>                    (ptr)
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="lst-debug-print-tree">lst_debug_print_tree ()</title>
+<indexterm><primary>lst_debug_print_tree</primary></indexterm><programlisting><link linkend="void">void</link>        lst_debug_print_tree            (<link linkend="LST-STree">LST_STree</link> *tree);</programlisting>
+<para>
+We make this always available, not only with -DDEBUG.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to print.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="D-PRINT-TREE:CAPS">D_PRINT_TREE()</title>
+<indexterm><primary>D_PRINT_TREE</primary></indexterm><programlisting>#define     D_PRINT_TREE(tree)</programlisting>
+<para>
+This is just a wrapper around <link linkend="lst-debug-print-tree"><function>lst_debug_print_tree()</function></link>,
+so nothing will be printed if debugging isn't enabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&nbsp;:</term>
+<listitem><simpara> tree to print.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-debug-print-substring">lst_debug_print_substring ()</title>
+<indexterm><primary>lst_debug_print_substring</primary></indexterm><programlisting><link linkend="char">char</link>*       lst_debug_print_substring       (<link linkend="LST-String">LST_String</link> *string,
+                                             <link linkend="u-int">u_int</link> start_index,
+                                             <link linkend="u-int">u_int</link> end_index,
+                                             <link linkend="u-int">u_int</link> extra_index);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start_index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end_index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extra_index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="lst-stderr">lst_stderr()</title>
+<indexterm><primary>lst_stderr</primary></indexterm><programlisting>#define lst_stderr(...) fprintf(stderr, __VA_ARGS__)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="D:CAPS">D()</title>
+<indexterm><primary>D</primary></indexterm><programlisting>#define     D(x)</programlisting>
+<para>
+Use this macro to output debugging information. <parameter>x</parameter> is
+the content as you would pass it to <link linkend="printf"><function>printf()</function></link>, including
+braces to make the arguments appear as one argument to
+the macro. The macro is automatically deleted if -DDEBUG
+is not passed at build time.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> debugging information.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="D-ASSERT:CAPS">D_ASSERT()</title>
+<indexterm><primary>D_ASSERT</primary></indexterm><programlisting>#define     D_ASSERT(exp, msg)</programlisting>
+<para>
+The macro outputs <parameter>msg</parameter> if the expression <parameter>exp</parameter> evaluates
+to <literal>FALSE</literal>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>exp</parameter>&nbsp;:</term>
+<listitem><simpara> expression to evaluate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>msg</parameter>&nbsp;:</term>
+<listitem><simpara> message to output if <parameter>exp</parameter> fails.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="D-ASSERT-PTR:CAPS">D_ASSERT_PTR()</title>
+<indexterm><primary>D_ASSERT_PTR</primary></indexterm><programlisting>#define     D_ASSERT_PTR(ptr)</programlisting>
+<para>
+The macro asserts the existence (i.e. non-NULL-ness) of
+the given pointer, and outpus a message if it is <literal>NULL</literal>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to check.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

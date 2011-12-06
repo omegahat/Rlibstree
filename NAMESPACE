@@ -1,0 +1,15 @@
+useDynLib("Rlibstree")
+
+exportPattern(".*")
+
+exportClasses("SuffixTree", "StringSet")
+
+export(getCommonPrefix, getLongestSubstring)
+export(StringSet, SuffixTree)
+exportMethods("getLongestSubstring", "SuffixTree")
+
+exportMethods("lapply", "sapply", "length", "append", "[", "coerce")
+
+
+
+

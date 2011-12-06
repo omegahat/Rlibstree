@@ -1,0 +1,1095 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>lst_stree</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="libstree Manual"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="PREVIOUS"
+TITLE="lst_algorithms"
+HREF="libstree-lst-algorithms.html"><LINK
+REL="NEXT"
+TITLE="lst_structs"
+HREF="libstree-lst-structs.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>libstree Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-algorithms.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="libstree-lst-structs.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="LIBSTREE-LST-STREE"
+></A
+>lst_stree</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN392"
+></A
+><H2
+>Name</H2
+>lst_stree&nbsp;--&nbsp;</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN395"
+></A
+><H2
+>Synopsis</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="SYNOPSIS"
+>&#13;
+
+LST_STree*  <A
+HREF="libstree-lst-stree.html#LST-STREE-NEW"
+>lst_stree_new</A
+>                   (LST_StringSet *strings);
+void        <A
+HREF="libstree-lst-stree.html#LST-STREE-FREE"
+>lst_stree_free</A
+>                  (LST_STree *tree);
+int         <A
+HREF="libstree-lst-stree.html#LST-STREE-INIT"
+>lst_stree_init</A
+>                  (LST_STree *tree);
+void        <A
+HREF="libstree-lst-stree.html#LST-STREE-CLEAR"
+>lst_stree_clear</A
+>                 (LST_STree *tree);
+void        <A
+HREF="libstree-lst-stree.html#LST-STREE-ADD-STRING"
+>lst_stree_add_string</A
+>            (LST_STree *tree,
+                                             LST_String *string);
+void        <A
+HREF="libstree-lst-stree.html#LST-STREE-REMOVE-STRING"
+>lst_stree_remove_string</A
+>         (LST_STree *tree,
+                                             LST_String *string);
+int         <A
+HREF="libstree-lst-stree.html#LST-STREE-GET-STRING-INDEX"
+>lst_stree_get_string_index</A
+>      (LST_STree *tree,
+                                             LST_String *string);
+void        <A
+HREF="libstree-lst-stree.html#LST-STREE-ALLOW-DUPLICATES"
+>lst_stree_allow_duplicates</A
+>      (LST_STree *tree,
+                                             int duplicates_flag);
+LST_Node*   <A
+HREF="libstree-lst-stree.html#LST-NODE-GET-PARENT"
+>lst_node_get_parent</A
+>             (LST_Node *node);
+int         <A
+HREF="libstree-lst-stree.html#LST-NODE-IS-LEAF"
+>lst_node_is_leaf</A
+>                (LST_Node *node);
+int         <A
+HREF="libstree-lst-stree.html#LST-NODE-IS-ROOT"
+>lst_node_is_root</A
+>                (LST_Node *node);
+int         <A
+HREF="libstree-lst-stree.html#LST-NODE-GET-STRING-LENGTH"
+>lst_node_get_string_length</A
+>      (LST_Node *node);
+LST_String* <A
+HREF="libstree-lst-stree.html#LST-NODE-GET-STRING"
+>lst_node_get_string</A
+>             (LST_Node *node,
+                                             int max_depth);
+int         <A
+HREF="libstree-lst-stree.html#LST-EDGE-GET-LENGTH"
+>lst_edge_get_length</A
+>             (LST_Edge *edge);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN445"
+></A
+><H2
+>Description</H2
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN448"
+></A
+><H2
+>Details</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN450"
+></A
+><H3
+><A
+NAME="LST-STREE-NEW"
+></A
+>lst_stree_new ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_STree*  lst_stree_new                   (LST_StringSet *strings);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is an implementation of Ukkonen's O(n) algorithm for creating
+a suffix tree. Upon return, the tree contains information on all
+the strings contained in the given string set. If you don't want
+to insert strings right away, just pass <TT
+CLASS="LITERAL"
+>NULL</TT
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>strings</TT
+>&nbsp;:</DT
+><DD
+><P
+> set of strings to build tree with.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> new suffix tree.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN472"
+></A
+><H3
+><A
+NAME="LST-STREE-FREE"
+></A
+>lst_stree_free ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stree_free                  (LST_STree *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function releases all the memory claimed by the suffix tree.
+It does not touch any of the strings contained in the tree when
+called, it only cleans up the tree itself. Use when the tree
+was created with <A
+HREF="libstree-lst-stree.html#LST-STREE-NEW"
+><CODE
+CLASS="FUNCTION"
+>lst_stree_new()</CODE
+></A
+>.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to clean up.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN490"
+></A
+><H3
+><A
+NAME="LST-STREE-INIT"
+></A
+>lst_stree_init ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_stree_init                  (LST_STree *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This function initializes a tree structure that already exists.
+It is hence faster when you need a suffix tree in a tight loop
+as no data need be allocated and later on freed. It does not check
+if any data is existing in the structure when called; make sure you
+call <A
+HREF="libstree-lst-stree.html#LST-STREE-CLEAR"
+><CODE
+CLASS="FUNCTION"
+>lst_stree_clear()</CODE
+></A
+> when you want to use the structure repeatedly.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree structure to initialize.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> value &gt; 0 when initialization was successful, 0 otherwise.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN513"
+></A
+><H3
+><A
+NAME="LST-STREE-CLEAR"
+></A
+>lst_stree_clear ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stree_clear                 (LST_STree *tree);</PRE
+></TD
+></TR
+></TABLE
+><P
+>This is the counterpart to <A
+HREF="libstree-lst-stree.html#LST-STREE-INIT"
+><CODE
+CLASS="FUNCTION"
+>lst_stree_init()</CODE
+></A
+>. It cleans up the tree
+but does not free the tree structure itself.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to clear.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN531"
+></A
+><H3
+><A
+NAME="LST-STREE-ADD-STRING"
+></A
+>lst_stree_add_string ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stree_add_string            (LST_STree *tree,
+                                             LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function adds <TT
+CLASS="PARAMETER"
+>string</TT
+> to the tree, unless he string is
+a duplicate of an existing string and duplicates are not
+allowed (see <A
+HREF="libstree-lst-stree.html#LST-STREE-ALLOW-DUPLICATES"
+><CODE
+CLASS="FUNCTION"
+>lst_stree_allow_duplicates()</CODE
+></A
+>). The string you
+pass itself remains unmodified (NOTE: This is *new* as of
+0.4.3. Previously you had to pass a string that libstree
+could release).</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to add string to.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to add.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN556"
+></A
+><H3
+><A
+NAME="LST-STREE-REMOVE-STRING"
+></A
+>lst_stree_remove_string ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stree_remove_string         (LST_STree *tree,
+                                             LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>The function checks whether <TT
+CLASS="PARAMETER"
+>tree</TT
+> in fact contains <TT
+CLASS="PARAMETER"
+>string</TT
+> and
+if that's the case, removes it from the tree.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to remove string from.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to remove.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN580"
+></A
+><H3
+><A
+NAME="LST-STREE-GET-STRING-INDEX"
+></A
+>lst_stree_get_string_index ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_stree_get_string_index      (LST_STree *tree,
+                                             LST_String *string);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Within a suffix tree, every string contained in it is associated with
+an integer index value. This function returns that value.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to query.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>string</TT
+>&nbsp;:</DT
+><DD
+><P
+> string to look up.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> index of <TT
+CLASS="PARAMETER"
+>string</TT
+> in <TT
+CLASS="PARAMETER"
+>tree</TT
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN609"
+></A
+><H3
+><A
+NAME="LST-STREE-ALLOW-DUPLICATES"
+></A
+>lst_stree_allow_duplicates ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>void        lst_stree_allow_duplicates      (LST_STree *tree,
+                                             int duplicates_flag);</PRE
+></TD
+></TR
+></TABLE
+><P
+>Depending on the application of the suffix tree, it may be okay to
+have duplicates of strings in the tree or not. By default, duplicates
+are allowed. However, if you want to prevent insertion of a string
+that is already contained in the tree, pass 0.</P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>tree</TT
+>&nbsp;:</DT
+><DD
+><P
+> tree to modify.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>duplicates_flag</TT
+>&nbsp;:</DT
+><DD
+><P
+> whether to allow duplicates (&gt; 0) or not (0).</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN631"
+></A
+><H3
+><A
+NAME="LST-NODE-GET-PARENT"
+></A
+>lst_node_get_parent ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_Node*   lst_node_get_parent             (LST_Node *node);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node to find parent for.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> the parent node of a node, or <TT
+CLASS="LITERAL"
+>NULL</TT
+> if no
+such node exists.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN653"
+></A
+><H3
+><A
+NAME="LST-NODE-IS-LEAF"
+></A
+>lst_node_is_leaf ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_node_is_leaf                (LST_Node *node);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node to check.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> value &gt; 0 if <TT
+CLASS="PARAMETER"
+>node</TT
+> is a leaf, 0 otherwise.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN675"
+></A
+><H3
+><A
+NAME="LST-NODE-IS-ROOT"
+></A
+>lst_node_is_root ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_node_is_root                (LST_Node *node);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node to check.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> value &gt; 0 if <TT
+CLASS="PARAMETER"
+>node</TT
+> is the root, 0 otherwise.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN697"
+></A
+><H3
+><A
+NAME="LST-NODE-GET-STRING-LENGTH"
+></A
+>lst_node_get_string_length ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_node_get_string_length      (LST_Node *node);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node to query.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> the number of string items found on the edges iterated
+when going from the root down to <TT
+CLASS="PARAMETER"
+>node</TT
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN719"
+></A
+><H3
+><A
+NAME="LST-NODE-GET-STRING"
+></A
+>lst_node_get_string ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>LST_String* lst_node_get_string             (LST_Node *node,
+                                             int max_depth);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>node</TT
+>&nbsp;:</DT
+><DD
+><P
+> node whose string to return.</P
+></DD
+><DT
+><TT
+CLASS="PARAMETER"
+>max_depth</TT
+>&nbsp;:</DT
+><DD
+><P
+> make string no longer than <TT
+CLASS="PARAMETER"
+>max_depth</TT
+> items.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> A newly allocated string consisting of all the string
+elements found when iterating from the root down to <TT
+CLASS="PARAMETER"
+>node</TT
+>.</P
+></DD
+></DL
+></DIV
+></DIV
+><HR><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN748"
+></A
+><H3
+><A
+NAME="LST-EDGE-GET-LENGTH"
+></A
+>lst_edge_get_length ()</H3
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>int         lst_edge_get_length             (LST_Edge *edge);</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+><P
+></P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="PARAMETER"
+>edge</TT
+>&nbsp;:</DT
+><DD
+><P
+> edge to query.</P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>Returns</B
+></SPAN
+>&nbsp;:</DT
+><DD
+><P
+> the length of the substring associated with that edge.</P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="libstree-lst-algorithms.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="libstree-lst-structs.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>lst_algorithms</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>lst_structs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

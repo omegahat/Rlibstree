@@ -1,0 +1,28 @@
+0.3-1
+ 
+  * Added both version 0.4-2 and 0.4-3 of the libstree distribution and provided a 
+    configuration option to specify which one to use. The default is 0.4-2.
+
+  * Added getCommonPrefix() function and C code to get the longest shared prefixed.
+
+  * Added getLongestCommonSubstring() and getLongestRepeatedSubstring() as convenience
+    functions for getLongestSubstring(, repeated = TRUE | FALSE).
+
+  * More documentation and examples for getLongestSubstring.
+
+0.3-0
+
+  *  ?
+
+
+0.2-3
+
+  *  Compile the local version of libstree as a static library and install
+     it into the source directory under local.  Added a cleanup script to remove
+     this.
+
+0.2-2
+
+  *  Include libstree (0.4-3) with the package.
+
+  *  Remove debugging output in C code.

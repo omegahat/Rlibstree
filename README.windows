@@ -1,0 +1,44 @@
+These are notes on what I changed and what one does to 
+build inst/libstree/ before installing the R package.
+
+
+Changes
+------------------------
+We have added different include directives to 
+  lst_structs.h
+  lst_string.h
+  lst_stree.h
+for WIN32. Also, we have included a copy of queue.h
+(from Linux) to provide the LIST_ENTRY, etc. macros.
+The includes we added are 
+  "queue.h"
+  <windows.h>
+
+which seems to cover almost everything we need.
+We also define u_int32_t as 'unsigned int'.
+
+
+Building libstree
+------------------
+
+cd inst/libstree
+./configure INSTALL=/usr/bin/install
+make
+make install DESTDIR=c:/cygwin/usr/local
+cp src/queue.h c:/cygwin/usr/local/include/stree
+
+Note that we need to specify the DESTDIR with c:/cygwin rather than
+just /usr/local as otherwise ranlib cannot find the file it is to work
+on.
+
+The INSTALL=/usr/bin/install is to avoid using the INSTALL executable
+in $R_HOME/bin/
+
+
+
+Issues
+------------------------------
+
+There appears to be an off-by-one error in the strings as there
+appears to be an extra character.  See example(getLongestSubstring).
+This might be related to valgrind's warnings.

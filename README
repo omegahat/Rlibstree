@@ -1,0 +1,69 @@
+This is a quickly written interface to a suffix tree library to
+explore different aspects of external data and the use of suffix trees
+in R for text manipulation.  Currently, we use the libstree
+(http://www.cl.cam.ac.uk/~cpk25/libstree/, download from
+http://www.cl.cam.ac.uk/~cpk25/downloads/libstree-0.4.0.tar.gz
+or more recently from http://www.icir.org/christian/libstree/) source
+code by Christian Kreibich. Installation of that library is relatively
+straighforward as it is stand-alone, not depending on other libraries.
+Unfortunately, to use it easily with another program, the libstree
+code should be installed.  To put it someplace for which you do not
+need special permissions, use
+
+  cd libstree-0.4-0      # or whatever the relevant directory is.
+  ./configure --prefix=$HOME/local
+  make install 
+
+Then use
+
+   R CMD INSTALL --configure-args=--with-libstree=$HOME/local Rlibstree
+
+and that should find the relevant header and libaries files.  
+Specifically, the argument for --prefix when building and installing libstree
+should be the same as the value for --with-libstree in the R CMD INSTALL.
+
+
+The package provides access to StringSet and SuffixTree classes
+which are external pointers, i.e. references to the C-level data structures.
+The package provides an interface to the getLongestSubstring() facilities in 
+libstree for finding the longest common and repeated substring of a given length.
+These are the algorithms that are currently available in the libstree code.
+
+
+
+In this R package, one can iterate over the elements in a StringSet
+using lapply/sapply.  The operation can be given as either an R
+function or a C routine (an object of class "NativeSymbol"). The C
+routine can be obtained using getNativeSymbolInfo(symbolName).  We
+want the address of that, but methods for lapply will coerce a
+NativeSymbolInfo appropriately.  The ability to use a C routine is
+intended to illustrate this facility in the R-C interface and also
+for efficiency.  We can add the same for traversing the tree.
+
+
+
+
+The longest substring algorithms are suboptimal in this library.  So
+why are we using it?  Primarily because we hope the interface design
+from R to the library will carry over to different implementations.
+We have used this to provide an illustration of different aspects of
+S4 classes, external pointers, using C routines in lapply.
+We will probably move to a different implementation of suffix trees
+if there is sufficient motivation.
+Other possible libraries include
+ Shlomo Yona's at  http://yeda.cs.technion.ac.il/~yona/suffix_tree/
+and
+ Stefan Kurtz's which is part of MUMmer from TIGR (The Institute for Genomic Research) available
+ at sourceforge.net.
+  (See the file  src/kurtz/streesrc/streeproto.h for the potentially relevant C routines)
+ or in a different form 
+  the wotdsrc.new from 
+     http://bibiserv.techfak.uni-bielefeld.de/download/tools/wotd.html
+  associated with the paper
+     http://www.zbh.uni-hamburg.de/staff/kurtz/papers/GieKurSto2003.pdf
+
+I have no experience with any of these yet, so take the pointers as merely
+places to explore.
+
+
+

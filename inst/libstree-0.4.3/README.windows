@@ -1,0 +1,19 @@
+These are notes on what I changed and what one does to 
+build inst/libstree/ before installing the R package.
+
+
+Changes
+------------------------
+We have added different include directives to 
+  lst_structs.h
+  lst_string.h
+  lst_stree.h
+for WIN32. Also, we have included a copy of queue.h
+(from Linux) to provide the LIST_ENTRY, etc. macros.
+The includes we added are 
+  "queue.h"
+  <windows.h>
+
+which seems to cover almost everything we need.
+We also define u_int32_t as 'unsigned int'.
+

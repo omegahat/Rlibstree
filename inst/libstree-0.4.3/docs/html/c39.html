@@ -1,0 +1,441 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using libstree</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="libstree Manual"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Why C?"
+HREF="x36.html"><LINK
+REL="NEXT"
+TITLE="libstree API Reference"
+HREF="api.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>libstree Manual</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x36.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="api.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="AEN39"
+></A
+>Using <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+></H1
+><P
+>    Using <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+> is hopefully really quite simple. As an example, let's walk through
+    one of the test programs found in the <TT
+CLASS="FILENAME"
+>test</TT
+> directory of the
+    source distribution:
+    <TT
+CLASS="FILENAME"
+>lcshex.c</TT
+>, which calculates the longest common byte sequence of
+    the programs you pass it as command line arguments
+    <A
+NAME="AEN46"
+HREF="#FTN.AEN46"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>.
+    </P
+><P
+>    Since <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+> operates on arbitrary strings, it needs a string model that leaves
+    the implementation of the common string operations up to the user. String families that
+    use a given set of such operations is called a
+    <SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>string class</B
+></SPAN
+> (called <SPAN
+CLASS="TYPE"
+>LST_StringClass</SPAN
+>).
+    Strings are instances of the <SPAN
+CLASS="TYPE"
+>LST_String</SPAN
+> type, and suffix
+    trees are instances of <SPAN
+CLASS="TYPE"
+>LST_STree</SPAN
+> type.    
+    Each string belongs to a string class. Since it will often be the case that an application
+    uses only a single class of strings (e.g., byte strings), there is a <SPAN
+CLASS="emphasis"
+><B
+CLASS="EMPHASIS"
+>default</B
+></SPAN
+>
+    string class, whose properties you can specify once and then forget about it.
+    </P
+><P
+>    <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+> currently uses three string-class-specific operations:
+    <P
+></P
+><UL
+><LI
+><P
+>	A function to compare string items (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCMPFUNC"
+>LST_StringItemCmpFunc</A
+>)
+	</P
+></LI
+><LI
+><P
+>	A function to copy string items (<A
+HREF="libstree-lst-string.html#LST-STRINGITEMCOPYFUNC"
+>LST_StringItemCopyFunc</A
+>)
+	</P
+></LI
+><LI
+><P
+>	A function to convert a single string into an ASCII string (<A
+HREF="libstree-lst-string.html#LST-STRINGPRINTFUNC"
+>LST_StringPrintFunc</A
+>)
+	</P
+></LI
+></UL
+>
+    The default operations assume byte strings, so compare function uses <CODE
+CLASS="FUNCTION"
+>memcmp()</CODE
+>
+    on the memory area that the string item occupies, uses simple character assignment to copy an item.
+    </P
+><P
+>    Our little test program works on binary files, so we can use the compare and copy
+    function, but for output, we prefer hexadecimal strings. <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+> already provides
+    a function that does this, and we use it to override the default.
+    </P
+><P
+>    Let's look at some code. We will need a suffix tree and a few strings; also, we override
+    the output method as describes above.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  LST_STree       *tree;
+  LST_StringSet   *set, *result;
+  LST_String      *string;
+
+  /* Create a string class with a special print method, otherwise
+   * we can use the defaults:
+   */
+  lst_stringclass_set_defaults(NULL, NULL, lst_string_print_hex);
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  Since most applications will have to handle multiple strings at a time, a container for
+  a number of strings is convenient. <CODE
+CLASS="FUNCTION"
+>libstree</CODE
+> provides the type <SPAN
+CLASS="TYPE"
+>LST_StringSet</SPAN
+>
+  that can hold a set of strings. Let's allocate such a set:
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  /* Create a string set to conveniently hold all our strings: */
+  set = lst_stringset_new();
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  Now, we check for each of the program names that the user passed in, whether
+  the file exists and if we can read it. We then allocate a chunk of memory and
+  read the entire program code into it:
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  FILE *f;
+  u_char *data;
+  struct stat st;
+
+  /* stat() the file, open file handle etc, now read content: */ 
+
+  if (fread(data, 1, st.st_size, f) != (size_t) st.st_size)
+    {
+      printf("Error reading %s -- skipping.\n", argv[i]);
+      free(data);
+       continue;
+    }
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  We're ready to create a string object from this bytesequence and add it
+  to our string set.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  string = lst_string_new(data, 1, st.st_size);
+  lst_stringset_add(set, string);
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  Now, let's build a suffix tree for all the strings we just put into our string set:
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  /* Create a suffix tree for all strings in the set: */
+  tree = lst_stree_new(set);
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  Now find the longest common substring of all those strings.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  /* Find longest common substring(s) */
+  result = lst_alg_longest_common_substring(tree, 0, 0);
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  Note that the result is also a string set -- there may be multiple longest
+  strings, of the same length. You can limit the results by requesting only
+  substrings of a given minimum and maximum length, see
+  <A
+HREF="libstree-lst-algorithms.html#LST-ALG-LONGEST-COMMON-SUBSTRING"
+>lst_alg_longest_common_substring()</A
+>.
+  Finally, let's print each of the strings out to the console. The string set
+  contents can be iterated using
+  <A
+HREF="libstree-lst-string.html#LST-STRINGSET-FOREACH"
+>lst_stringset_foreach()</A
+>:
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+BGCOLOR="#f0f0f0"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>  /* Print them out: */
+  lst_stringset_foreach(result, string_cb, NULL);
+  </PRE
+></TD
+></TR
+></TABLE
+><P
+>  That's it. Please browse the other test programs to get a better feeling for
+  the API.
+  </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN46"
+HREF="c39.html#AEN46"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>What do you mean, "What is this good for!?" :)"</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x36.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="api.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Why C?</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>libstree API Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,13 @@
+Package: Rlibstree
+Title: Suffix Trees in R via the libstree Clibrary
+Description: Facilities for using suffix trees in C to do computations
+ on large collections strings.  This currently uses 
+ Christian Kreibich's libstree library to implement the Suffix Trees.
+Version: 0.3-1
+Depends: methods
+System: libstree (included within the package or http://www.icir.org/christian/libstree/index.html)
+Maintainer: Duncan Temple Lang <duncan@wald.ucdavis.edu>
+Author: Duncan Temple Lang <duncan@wald.ucdavis.edu>
+LazyLoad: yes
+License: BSD
+
