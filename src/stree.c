@@ -12,6 +12,11 @@
 
 #include <Rdefines.h>
 
+#include <R_ext/Error.h>	/* for Rf_error and Rf_warning */
+#define R_PROBLEM_BUFSIZE	4096
+#define PROBLEM			{char R_problem_buf[R_PROBLEM_BUFSIZE];(snprintf)(R_problem_buf, R_PROBLEM_BUFSIZE,
+#define ERROR			),Rf_error(R_problem_buf);}
+
 static LST_StringSet * getStringSetRef(SEXP sset);
 static void * getRef(SEXP sset, SEXP sym);
 static LST_STree *getSuffixTreeRef(SEXP sset);
