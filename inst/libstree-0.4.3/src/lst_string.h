@@ -93,6 +93,9 @@ typedef char *(*LST_StringPrintFunc) (LST_StringIndex *index);
 typedef void  (*LST_StringItemCopyFunc) (void *src, void *dst);
 
 
+typedef unsigned char u_char;
+typedef unsigned int  u_int;
+
 struct lst_string
 {
   /* Every string has a unique id -- when appropriate
